@@ -2,23 +2,18 @@ import axios from "axios";
 import * as Bitquery from "./components/callBitquery";
 const BITQUERY_API = "your key";
 
-
-
 export const getBars = async (
   symbolInfo,
   resolution,
-  periodParams,
+  periodParams, //compulsorily needed
   onHistoryCallback,
   onErrorCallback
 ) => {
   try {
-  
     const fromTime = new Date(periodParams.from * 1000).toISOString();
     const toTime = new Date(periodParams.to * 1000).toISOString();
-    console.log("fromTime:", fromTime);
-    console.log("toTime:", toTime);
-    const requiredBars = 302
-    console.log("requiredBars", requiredBars);
+
+    const requiredBars = 300;
 
     const bars = new Array(periodParams.countBack + 1);
     let time = new Date(periodParams.to * 1000);
@@ -26,7 +21,6 @@ export const getBars = async (
     time.setUTCMinutes(0);
     time.setUTCMilliseconds(0);
 
-  
     const response = await axios.post(
       Bitquery.endpoint,
       {
@@ -46,13 +40,11 @@ export const getBars = async (
       const data = response.data.data.EVM.DEXTradeByTokens[i];
 
       if (data) {
-     
         const open = Number(data.Trade.open.toFixed(18));
         const close = Number(data.Trade.close.toFixed(18));
         let high = Number(data.Trade.high.toFixed(18));
         let low = Number(data.Trade.low.toFixed(18));
         const resdate = new Date(data.Block.Time);
-     
 
         bars[i] = {
           time: resdate,
@@ -63,10 +55,9 @@ export const getBars = async (
           volume: data.Trade.volume,
         };
       } else {
-        
         bars[i] = {
           time: time.getTime(),
-         
+
           open: 0,
           high: 0,
           low: 0,
@@ -77,7 +68,6 @@ export const getBars = async (
 
       time.setUTCDate(time.getUTCDate() - 1);
     }
-
 
     if (bars.length === 0) {
       onHistoryCallback([], { noData: true });
@@ -97,11 +87,11 @@ export const subscribeBars = (
   subscriberUID,
   onResetCacheNeededCallback
 ) => {
-  // console.log('[subscribeBars]: Method call with subscriberUID:', subscriberUID);
-  // Implement your subscription logic here 
+  
+  // Implement your subscription logic here
 };
 
 export const unsubscribeBars = (subscriberUID) => {
-  // console.log('[unsubscribeBars]: Method call with subscriberUID:', subscriberUID);
+ 
   // Implement your unsubscription logic here
 };
