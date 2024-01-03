@@ -5,6 +5,11 @@
 /.pnp
 .pnp.js
 
+
+#private library
+/src/charting_library
+/public/charting_library
+
 # testing
 /coverage
 
