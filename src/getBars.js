@@ -10,6 +10,7 @@ export const getBars = async (
   onErrorCallback
 ) => {
   try {
+    console.log("getBars called")
     const fromTime = new Date(periodParams.from * 1000).toISOString();
     const toTime = new Date(periodParams.to * 1000).toISOString();
 
@@ -31,13 +32,13 @@ export const getBars = async (
         headers: {
           "Content-Type": "application/json",
           Authorization:
-            "Bearer ory_...",
+            "Bearer ory_at_",
         },
       }
     );
 
     // console.log("response ", response);
-    for (let i = 1000; i > -1; i--) {
+    for (let i = 15000; i > -1; i--) {
       const data = response.data.data.EVM.DEXTradeByTokens[i];
       
       if (data) {
@@ -53,7 +54,7 @@ export const getBars = async (
           high: high,
           low: low,
           close: close,
-          volume: data.volume,
+          volume: Number(data.volume),
         };
       } else {
         bars[i] = {

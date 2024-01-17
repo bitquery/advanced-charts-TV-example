@@ -29,8 +29,8 @@ const TVChartContainer = () => {
       fullscreen: false,
       autosize: true,
       studies_overrides: {},
-      supports_marks: false,
-      supports_timescale_marks: false,
+      supports_marks: true,
+      supports_timescale_marks: true,
       theme: "dark",
 
       overrides: {
