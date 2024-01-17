@@ -1,6 +1,6 @@
 import axios from "axios";
 import * as Bitquery from "./components/callBitquery";
-const BITQUERY_API = "your key";
+
 
 export const getBars = async (
   symbolInfo,
@@ -13,7 +13,7 @@ export const getBars = async (
     const fromTime = new Date(periodParams.from * 1000).toISOString();
     const toTime = new Date(periodParams.to * 1000).toISOString();
 
-    const requiredBars = 300;
+    const requiredBars = 302;
 
     const bars = new Array(periodParams.countBack + 1);
     let time = new Date(periodParams.to * 1000);
@@ -30,29 +30,30 @@ export const getBars = async (
       {
         headers: {
           "Content-Type": "application/json",
-          "X-API-KEY": BITQUERY_API,
+          Authorization:
+            "Bearer ory_...",
         },
       }
     );
 
-    console.log("response ", response);
-    for (let i = 302; i > -1; i--) {
+    // console.log("response ", response);
+    for (let i = 1000; i > -1; i--) {
       const data = response.data.data.EVM.DEXTradeByTokens[i];
-
+      
       if (data) {
         const open = Number(data.Trade.open.toFixed(18));
         const close = Number(data.Trade.close.toFixed(18));
         let high = Number(data.Trade.high.toFixed(18));
         let low = Number(data.Trade.low.toFixed(18));
         const resdate = new Date(data.Block.Time);
-
+       
         bars[i] = {
           time: resdate,
           open: open,
           high: high,
           low: low,
           close: close,
-          volume: data.Trade.volume,
+          volume: data.volume,
         };
       } else {
         bars[i] = {
@@ -87,11 +88,9 @@ export const subscribeBars = (
   subscriberUID,
   onResetCacheNeededCallback
 ) => {
-  
   // Implement your subscription logic here
 };
 
 export const unsubscribeBars = (subscriberUID) => {
- 
   // Implement your unsubscription logic here
 };
