@@ -23,9 +23,11 @@ export const resolveSymbol = (
       has_weekly_and_monthly: false,
       supported_resolutions: ["1", "5", "15", "30", "60", "1D", "1W", "1M"],
       supported_intervals: ["1", "5", "15", "30", "60", "1D", "1W", "1M"],
-      volume_precision: 1,
-      data_status: "streaming",
+      // volume_precision: 1,
+      // data_status: "streaming",
       countBack: 30,
+      volume_precision: 2,
+      visible_plots_set: 'ohlcv',
     };
     onSymbolResolvedCallback(symbolInfo);
   }

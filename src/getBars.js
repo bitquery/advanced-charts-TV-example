@@ -32,7 +32,7 @@ export const getBars = async (
         headers: {
           "Content-Type": "application/json",
           Authorization:
-            "Bearer ory_at_",
+            "Bearer ory_at_..",
         },
       }
     );
