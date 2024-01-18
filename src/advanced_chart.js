@@ -12,8 +12,8 @@ const TVChartContainer = () => {
       datafeed: Datafeed,
       container: chartContainerRef.current,
       library_path: "/charting_library/",
-      interval:"5",
-     
+      interval: "5",
+
       locale: "en",
       disabled_features: [
         "use_localstorage_for_settings",
@@ -23,7 +23,7 @@ const TVChartContainer = () => {
       enabled_features: [],
       charts_storage_url: "https://saveload.tradingview.com",
       charts_storage_api_version: "1.1",
-      
+
       client_id: "tradingview.com",
       user_id: "public_user_id",
       fullscreen: false,
@@ -39,14 +39,28 @@ const TVChartContainer = () => {
       },
     };
 
-    const tvWidget = new widget(widgetOptions); 
-   
+    const tvWidget = new widget(widgetOptions);
+
+    tvWidget.onChartReady(() => {
+      tvWidget
+        .activeChart()
+        .setVisibleRange(
+          { from: 1700000000, to: 1705590400 },
+          { percentRightMargin: 20 }
+        );
+    });
+
     return () => {
       tvWidget.remove();
     };
   }, []);
 
-  return <div ref={chartContainerRef} style={{ height: '700px', backgroundColor: 'black' }}/>;
+  return (
+    <div
+      ref={chartContainerRef}
+      style={{ height: "700px", backgroundColor: "black" }}
+    />
+  );
 };
 
 export default TVChartContainer;
