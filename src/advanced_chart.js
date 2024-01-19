@@ -45,8 +45,8 @@ const TVChartContainer = () => {
       tvWidget
         .activeChart()
         .setVisibleRange(
-          { from: 1700000000, to: 1705590400 },
-          { percentRightMargin: 20 }
+          { from: 1699142400000, to: 1705449600000 },
+          { percentRightMargin: 10 }
         );
     });
 
