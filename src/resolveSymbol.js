@@ -28,7 +28,6 @@ export const resolveSymbol = (
       countBack: 30,
       volume_precision: 2,
       visible_plots_set: 'ohlcv',
-      
     };
     onSymbolResolvedCallback(symbolInfo);
   }

@@ -11,12 +11,12 @@ export const getBars = async (
 ) => {
   try {
     console.log("getBars called")
-    const fromTime = new Date(periodParams.from * 1000).toISOString();
-    const toTime = new Date(periodParams.to * 1000).toISOString();
+    // const fromTime = new Date(periodParams.from * 1000).toISOString();
+    // const toTime = new Date(periodParams.to * 1000).toISOString();
 
-    const requiredBars = 302;
+    // const requiredBars = 302;
 
-    const bars = new Array(periodParams.countBack + 1);
+    const bars = new Array(50);
     let time = new Date(periodParams.to * 1000);
     time.setUTCHours(0);
     time.setUTCMinutes(0);
@@ -32,7 +32,7 @@ export const getBars = async (
         headers: {
           "Content-Type": "application/json",
           Authorization:
-            "Bearer ory_at_..",
+            "Bearer ory_at_...",
         },
       }
     );
@@ -46,10 +46,10 @@ export const getBars = async (
         const close = Number(data.Trade.close.toFixed(18));
         let high = Number(data.Trade.high.toFixed(18));
         let low = Number(data.Trade.low.toFixed(18));
-        const resdate = new Date(data.Block.Time);
+        const resdate = new Date(data.Block.OHLC_interval);
        
         bars[i] = {
-          time: resdate,
+          time: resdate.getTime(),
           open: open,
           high: high,
           low: low,
