@@ -21,15 +21,15 @@ export const TOKEN_DETAILS = `
       limit: {count: 15000}
     ) {
     Block {
-         OHLC_interval: Time(interval: {in: hours, count:1})
+         OHLC_interval: Time(interval: {in: minutes, count:1})
       }
      
       volume: sum(of: Trade_Amount)
       Trade {
-        high: Price(maximum: Trade_Price, selectWhere:{lt:100000})
-        low: Price(minimum: Trade_Price, selectWhere:{lt:100000})
-        open: Price(minimum: Block_Number, selectWhere:{lt:100000})
-        close: Price(maximum: Block_Number, selectWhere:{lt:100000})
+        high: Price(maximum: Trade_Price, selectWhere:{lt:20000})
+        low: Price(minimum: Trade_Price, selectWhere:{lt:20000})
+        open: Price(minimum: Block_Number, selectWhere:{lt:20000})
+        close: Price(maximum: Block_Number, selectWhere:{lt:20000})
       }
       count
     }

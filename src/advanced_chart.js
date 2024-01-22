@@ -12,7 +12,7 @@ const TVChartContainer = () => {
       datafeed: Datafeed,
       container: chartContainerRef.current,
       library_path: "/charting_library/",
-      interval: "60",
+      interval: ["5","60"],
 
       locale: "en",
       disabled_features: [
@@ -41,14 +41,14 @@ const TVChartContainer = () => {
 
     const tvWidget = new widget(widgetOptions);
 
-    // tvWidget.onChartReady(() => {
-    //   tvWidget
-    //     .activeChart()
-    //     .setVisibleRange(
-    //       { from: 1699142400000, to: 1705449600000 },
-    //       { percentRightMargin: 10 }
-    //     );
-    // });
+    tvWidget.onChartReady(() => {
+      tvWidget
+        .activeChart()
+        .setVisibleRange(
+          { from: 1688529640000, to: 1701916840000 },
+          { percentRightMargin: 10 }
+        );
+    });
 
     return () => {
       tvWidget.remove();
