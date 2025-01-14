@@ -41,34 +41,33 @@ export const getBars = async (
     for (let i = 15000; i > -1; i--) {
       const data = response.data.data.EVM.DEXTradeByTokens[i];
       
-      if (data) {
-        const open = Number(data.Trade.open.toFixed(18));
-        const close = Number(data.Trade.close.toFixed(18));
-        let high = Number(data.Trade.high.toFixed(18));
-        let low = Number(data.Trade.low.toFixed(18));
-        const resdate = new Date(data.Block.OHLC_interval);
-       
-        bars[i] = {
-          time: resdate.getTime(),
-          open: open,
-          high: high,
-          low: low,
-          close: close,
-          volume: Number(data.volume),
-        };
-      } else {
-        bars[i] = {
-          time: time.getTime(),
+       if (data) {
+    const open = Number(data.Trade.open.toFixed(18));
+    const close = Number(data.Trade.close.toFixed(18));
+    const high = Number(data.Trade.high.toFixed(18));
+    const low = Number(data.Trade.low.toFixed(18));
+    const resdate = new Date(data.Block.OHLC_interval); 
 
-          open: 0,
-          high: 0,
-          low: 0,
-          close: 0,
-          volume: 0,
-        };
-      }
+    bars[i] = {
+      time: resdate.getTime(),
+      open: open,
+      high: high,
+      low: low,
+      close: close,
+      volume: Number(data.volume),
+    };
+  } else {
+    bars[i] = {
+      time: time.getTime(), 
+      open: 0,
+      high: 0,
+      low: 0,
+      close: 0,
+      volume: 0,
+    };
+  }
 
-      time.setUTCDate(time.getUTCDate() - 1);
+  time.setUTCDate(time.getUTCDate() - 1); // Decrement time
     }
 
     if (bars.length === 0) {
